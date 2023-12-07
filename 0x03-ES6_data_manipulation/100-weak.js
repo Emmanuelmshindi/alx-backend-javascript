@@ -1,0 +1,18 @@
+const weakMap = new WeakMap();
+
+function queryAPI(endpoint) {
+  // Check if endpoint is already in the WeakMap
+  if (!weakMap.has(endpoint)) {
+    weakMap.set(endpoint, 1);
+  } else {
+    //If endpoint is in weakmap increment count
+    const count = weakMap.get(endpoint) + 1;
+    weakMap.set(endpoint, count);
+
+    if (count >= 5) {
+      throw new Error('Endpoint load is high')
+    }
+  }
+}
+
+export { queryAPI, weakMap };

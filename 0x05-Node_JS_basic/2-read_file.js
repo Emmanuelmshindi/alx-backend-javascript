@@ -28,9 +28,11 @@ const countStudents = (filePath) => {
     console.log(`Number of students: ${students.length - 1}`);
     let isFirstIteration = true;
     for (const field in fieldCounts) {
-      if (isFirstIteration) {
-        isFirstIteration = false;
-	continue;
+      if (fieldCounts.hasOwnProperty(field)) {
+        if (isFirstIteration) {
+          isFirstIteration = false;
+	  continue;
+        }
       }
       console.log(`Number of students in ${field}: ${fieldCounts[field]}. List: ${getStudentList(students, field)}`);
     }

@@ -1,9 +1,9 @@
 const Utils = {
   isNegZero (n) {
     const num = Number(n);
-    return num === 0 && num === -Infinity;
+    return num === 0 / num === -Infinity;
   },
-  calculateNumber: (a, b = 0, type) => {
+  calculateNumber (a, b = 0, type) {
     const numA = Number(a);
     const numB = Number(b);
 
@@ -28,7 +28,7 @@ const Utils = {
 	  'Invalid operation type. Valid types are "SUM", "SUBTRACT", and "DIVIDE".'
 	);
     }
-   }
+  }
 };
 
 module.exports = Utils;

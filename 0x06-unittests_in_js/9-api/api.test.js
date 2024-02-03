@@ -1,75 +1,106 @@
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const api = require('./api');
+const request = require('request');
+const { expect } = require('chai');
 
-const app = api.app;
+describe('Integration Testing', () => {
+  describe('GET /', () => {
+    it('Code: 200 | Body: Welcome to the payment system', (done) => {
+      const options = {
+        url: 'http://localhost:7865',
+        method: 'GET',
+      };
 
-chai.use(chaiHttp);
-const expect = chai.expect;
-
-describe('Index page', () => {
-  it('should return status code 200 for GET /', (done) => {
-    chai.request(server)
-      .get('/')
-      .end((err, res) => {
-        expect(res).to.have.status(200);
+      request(options, function (error, response, body) {
+        expect(response.statusCode).to.equal(200);
+        expect(body).to.equal('Welcome to the payment system');
         done();
       });
+    });
   });
 
-  it('should return the correct result for GET /', (done) => {
-    chai.request(app)
-      .get('/')
-      .end((err, res) => {
-        expect(res.text).to.equal('Welcome to the payment system');
+  describe('GET /cart/12', () => {
+    it('Responds with status code 200 and correct message', (done) => {
+      const options = {
+        url: 'http://localhost:7865/cart/12',
+        method: 'GET',
+      };
+
+      request(options, function (error, response, body) {
+        expect(response.statusCode).to.equal(200);
+        expect(body).to.equal('Payment methods for cart 12');
         done();
       });
+    });
+  });
+  
+  describe('GET /cart/3', () => {
+    it('Responds with status code 200 and correct message', (done) => {
+      const options = {
+        url: 'http://localhost:7865/cart/3',
+        method: 'GET',
+      };
+
+      request(options, function (error, response, body) {
+        expect(response.statusCode).to.equal(200);
+        expect(body).to.equal('Payment methods for cart 3');
+        done();
+      });
+    });
   });
 
-  it('should have the "content-type" header set to "text/html"', (done) => {
-    chai.request(app)
-      .get('/')
-      .end((err, res) => {
-        expect(res).to.have.header('content-type', 'text/html; charset=utf-8');
-        done();
-      });
-  });
-});
+  describe('GET /cart/115', () => {
+    it('Responds with status code 200 and correct message', (done) => {
+      const options = {
+        url: 'http://localhost:7865/cart/115',
+        method: 'GET',
+      };
 
-describe('Cart page', () => {
-  it('should return status code 200 when cart id is a number', (done) => {
-    chai.request(app)
-      .get('/cart/2')
-      .end((err, res) => {
-        expect(res).to.have.status(200);
+      request(options, function (error, response, body) {
+        expect(response.statusCode).to.equal(200);
+        expect(body).to.equal('Payment methods for cart 115');
         done();
       });
+    });
   });
 
-  it('should returun status code 404 when cart id is not a number', (done) => {
-    chai.request(app)
-      .get('/cart/abc')
-      .end((err, res) => {
-        expect(res).to.have.status(404);
+  describe('GET /cart/5b', () => {
+    it('Responds with status code 404', (done) => {
+      const options = {
+        url: 'http://localhost:7865/cart/5b',
+        method: 'GET',
+      };
+
+      request(options, function (error, response, body) {
+        expect(response.statusCode).to.equal(404);
         done();
       });
+    });
   });
 
-  it('should return status code 404 when cart id is a negative number', (done) => {
-    chai.request(app)
-      .get('cart/-5')
-      .end((err, res) => {
-        expect(res).to.have.status(404);
+  describe('GET /cart/a21b', () => {
+    it('Responds with status code 404', (done) => {
+      const options = {
+        url: 'http://localhost:7865/cart/a21b',
+        method: 'GET',
+      };
+
+      request(options, function (error, response, body) {
+        expect(response.statusCode).to.equal(404);
         done();
       });
+    });
   });
 
-  it('should return status code 404 when cart id is not provided', (done) => {
-    chai.request(app)
-      .get('cart/')
-      .end((err, res) => {
-        expect(res).to.have.status(404);
+  describe('GET /cart/', () => {
+    it('Responds with status code 404', (done) => {
+      const options = {
+        url: 'http://localhost:7865/cart/',
+        method: 'GET',
+      };
+
+      request(options, function (error, response, body) {
+        expect(response.statusCode).to.equal(404);
         done();
       });
+    });
   });
 });

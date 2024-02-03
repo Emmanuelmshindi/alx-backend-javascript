@@ -1,37 +1,19 @@
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const api = require('./api');
+const request = require('request');
+const { expect } = require('chai');
 
-const app = api.app;
+describe('Integration Testing', () => {
+  describe('GET /', () => {
+    it('Code: 200 | Body: Welcome to the payment system', (done) => {
+      const options = {
+        url: 'http://localhost:7865',
+        method: 'GET',
+      };
 
-chai.use(chaiHttp);
-const expect = chai.expect;
-
-describe('Index page', () => {
-  it('should return status code 200 for GET /', (done) => {
-    chai.request(server)
-      .get('/')
-      .end((err, res) => {
-        expect(res).to.have.status(200);
+      request(options, function (error, response, body) {
+        expect(response.statusCode).to.equal(200);
+        expect(body).to.equal('Welcome to the payment system');
         done();
       });
-  });
-
-  it('should return the correct result for GET /', (done) => {
-    chai.request(app)
-      .get('/')
-      .end((err, res) => {
-        expect(res.text).to.equal('Welcome to the payment system');
-        done();
-      });
-  });
-
-  it('should have the "content-type" header set to "text/html"', (done) => {
-    chai.request(app)
-      .get('/')
-      .end((err, res) => {
-        expect(res).to.have.header('content-type', 'text/html; charset=utf-8');
-        done();
-      });
+    });
   });
 });

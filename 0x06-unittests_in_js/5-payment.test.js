@@ -4,7 +4,7 @@ const sinon = require('sinon');
 
 const sendPaymentRequestToApi = require('./5-payment');
 
-describe('Payment Test Suite', () => {
+describe('sendPaymentRequestToApi', () => {
   let spy;
 
   beforeEach(() => {
@@ -15,13 +15,13 @@ describe('Payment Test Suite', () => {
     spy.restore();
   });
 
-  it('should log "The total is: 120" for payment request with 100 and 20', () => {
+  it('should log 120 if a = 100 and b = 20', () => {
     sendPaymentRequestToApi(100, 20);
     expect(spy.calledOnceWithExactly('The total is: 120')).to.be.true;
     expect(spy.calledOnce).to.be.true;
   });
 
-  it('should log "The total is: 20" for payment request with 10 and 10', () => {
+  it('should log 20 if a = 10 and b = 10', () => {
     sendPaymentRequestToApi(10, 10);
     expect(spy.calledOnceWithExactly('The total is: 20')).to.be.true;
     expect(spy.calledOnce).to.be.true;

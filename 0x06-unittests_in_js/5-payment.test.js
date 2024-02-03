@@ -1,8 +1,8 @@
 const mocha = require('mocha');
-const expect = require('chai');
+const { expect } = require('chai');
 const sinon = require('sinon');
 
-const sendPaymentRequestToApi = require('./4-payment');
+const sendPaymentRequestToApi = require('./5-payment');
 
 describe('Payment Test Suite', () => {
   let spy;

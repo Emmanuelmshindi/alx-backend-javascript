@@ -1,28 +1,29 @@
-const assert = require('assert');
+const mocha = require('mocha');
+const expect = require('chai');
 const sinon = require('sinon');
 
-const { sendPaymentRequestToApi } = require('./4-payment');
-
-const consoleSpy = sinon.spy(console, 'log');
+const sendPaymentRequestToApi = require('./4-payment');
 
 describe('Payment Test Suite', () => {
+  let spy;
+
   beforeEach(() => {
-    consoleSpy.resetHistory();
+    spy = sinon.spy(console, 'log');
   });
 
   afterEach(() => {
-    assert.strictEqual(consoleSpy.calledOnce, true)
+    spy.restore();
   });
 
   it('should log "The total is: 120" for payment request with 100 and 20', () => {
     sendPaymentRequestToApi(100, 20);
-
-    assert.strictEqual(consoleSpy.calledWith('The total is: 120'), true);
+    expect(spy.calledOnceWithExactly('The total is: 120')).to.be.true;
+    expect(spy.calledOnce).to.be.true;
   });
 
   it('should log "The total is: 20" for payment request with 10 and 10', () => {
     sendPaymentRequestToApi(10, 10);
-
-    assert.strictEqual(consoleSpy.calledWith('The total is: 20'), true);
+    expect(spy.calledOnceWithExactly('The total is: 20')).to.be.true;
+    expect(spy.calledOnce).to.be.true;
   });
 });

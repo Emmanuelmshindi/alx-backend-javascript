@@ -6,7 +6,7 @@ describe('Integration Testing', () => {
     it('Code: 200 | Body: Welcome to the payment system', (done) => {
       const options = {
         url: 'http://localhost:7865',
-        method: 'GET',
+        method: 'GET'
       };
 
       request(options, function (error, response, body) {
@@ -18,10 +18,10 @@ describe('Integration Testing', () => {
   });
 
   describe('GET /cart/12', () => {
-    it('Responds with status code 200 and correct message', (done) => {
+    it('Responds with 200 and id 12 in msg', (done) => {
       const options = {
         url: 'http://localhost:7865/cart/12',
-        method: 'GET',
+        method: 'GET'
       };
 
       request(options, function (error, response, body) {
@@ -31,42 +31,42 @@ describe('Integration Testing', () => {
       });
     });
   });
-  
-  describe('GET /cart/3', () => {
-    it('Responds with status code 200 and correct message', (done) => {
+
+  describe('GET /cart/1', () => {
+    it('Responds with 200 and id 1 in msg', (done) => {
       const options = {
-        url: 'http://localhost:7865/cart/3',
-        method: 'GET',
+        url: 'http://localhost:7865/cart/1',
+        method: 'GET'
       };
 
       request(options, function (error, response, body) {
         expect(response.statusCode).to.equal(200);
-        expect(body).to.equal('Payment methods for cart 3');
+        expect(body).to.equal('Payment methods for cart 1');
         done();
       });
     });
   });
 
-  describe('GET /cart/115', () => {
-    it('Responds with status code 200 and correct message', (done) => {
+  describe('GET /cart/123', () => {
+    it('Responds with 200 and id 12 in msg', (done) => {
       const options = {
-        url: 'http://localhost:7865/cart/115',
-        method: 'GET',
+        url: 'http://localhost:7865/cart/123',
+        method: 'GET'
       };
 
       request(options, function (error, response, body) {
         expect(response.statusCode).to.equal(200);
-        expect(body).to.equal('Payment methods for cart 115');
+        expect(body).to.equal('Payment methods for cart 123');
         done();
       });
     });
   });
 
-  describe('GET /cart/5b', () => {
-    it('Responds with status code 404', (done) => {
+  describe('GET /cart/a12', () => {
+    it('Responds with 404', (done) => {
       const options = {
-        url: 'http://localhost:7865/cart/5b',
-        method: 'GET',
+        url: 'http://localhost:7865/cart/a12',
+        method: 'GET'
       };
 
       request(options, function (error, response, body) {
@@ -76,11 +76,39 @@ describe('Integration Testing', () => {
     });
   });
 
-  describe('GET /cart/a21b', () => {
-    it('Responds with status code 404', (done) => {
+  describe('GET /cart/a12b', () => {
+    it('Responds with 404', (done) => {
       const options = {
-        url: 'http://localhost:7865/cart/a21b',
-        method: 'GET',
+        url: 'http://localhost:7865/cart/a12b',
+        method: 'GET'
+      };
+
+      request(options, function (error, response, body) {
+        expect(response.statusCode).to.equal(404);
+        done();
+      });
+    });
+  });
+
+  describe('GET /cart/12b', () => {
+    it('Responds with 404', (done) => {
+      const options = {
+        url: 'http://localhost:7865/cart/12b',
+        method: 'GET'
+      };
+
+      request(options, function (error, response, body) {
+        expect(response.statusCode).to.equal(404);
+        done();
+      });
+    });
+  });
+
+  describe('GET /cart/hello', () => {
+    it('Responds with 404', (done) => {
+      const options = {
+        url: 'http://localhost:7865/cart/hello',
+        method: 'GET'
       };
 
       request(options, function (error, response, body) {
@@ -91,10 +119,10 @@ describe('Integration Testing', () => {
   });
 
   describe('GET /cart/', () => {
-    it('Responds with status code 404', (done) => {
+    it('Responds with 404', (done) => {
       const options = {
         url: 'http://localhost:7865/cart/',
-        method: 'GET',
+        method: 'GET'
       };
 
       request(options, function (error, response, body) {
@@ -105,38 +133,39 @@ describe('Integration Testing', () => {
   });
 
   describe('GET /available_payments JSON string', () => {
-    it('Responds with status code 200 and correct json string in the body', (done) => {
+    it('Responds with 200 and correct JSON string', (done) => {
       const options = {
         url: 'http://localhost:7865/available_payments',
-        method: 'GET',
+        method: 'GET'
       };
 
       request(options, function (error, response, body) {
         expect(response.statusCode).to.equal(200);
         expect(body).to.equal(
-	  '{"payment_methods":{"credit_cards":true,"paypal":false}}'
-	);
+          '{"payment_methods":{"credit_cards":true,"paypal":false}}'
+        );
         done();
       });
     });
   });
 
   describe('GET /available_payments JSON parsed', () => {
-    it('Responds with status code 200 and correct json obj when parsed', (done) => {
+    it('Responds with 200 and correct JSON object when parsed', (done) => {
       const options = {
         url: 'http://localhost:7865/available_payments',
-        method: 'GET',
+        method: 'GET'
       };
 
       request(options, function (error, response, body) {
         expect(response.statusCode).to.equal(200);
         const bodyParsed = JSON.parse(body);
+
         const referenceBody = {
-	  payment_methods: {
+          payment_methods: {
             credit_cards: true,
             paypal: false
           }
-	};
+        };
         expect(bodyParsed).to.deep.equal(referenceBody);
         done();
       });
@@ -144,13 +173,13 @@ describe('Integration Testing', () => {
   });
 
   describe('POST /login with body', () => {
-    it('Responds with 200 status code and name Betty', () => {
+    it('Responds with 200 and correct name Betty', (done) => {
       const options = {
         url: 'http://localhost:7865/login',
-        method: 'GET',
+        method: 'POST',
         json: {
-	  username: 'Betty'
-	}
+          userName: 'Betty'
+        }
       };
 
       request(options, function (error, response, body) {

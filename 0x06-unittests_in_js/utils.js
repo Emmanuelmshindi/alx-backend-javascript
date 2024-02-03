@@ -3,30 +3,30 @@ const Utils = {
     const num = Number(n);
     return num === 0 && 1 / num === -Infinity;
   },
-  calculateNumber (a, b = 0, type) {
-    let numA = Number(a);
-    let numB = Number(b);
+  calculateNumber (type, a, b = 0) {
+    let aNum = Number(a);
+    let bNum = Number(b);
 
-    if (Number.isNaN(numA) || Number.isNaN(numB)) { throw TypeError('Parameters must be numbers or able to coerce to number'); }
+    if (Number.isNaN(aNum) || Number.isNaN(bNum)) { throw TypeError('Parameters must be numbers or able to coerce to number'); }
 
-    numA = Math.round(numA);
-    numB = Math.round(numB);
+    aNum = Math.round(aNum);
+    bNum = Math.round(bNum);
 
     let quotient;
 
     switch (type) {
       case 'SUM':
-        return numA + numB;
+        return aNum + bNum;
       case 'SUBTRACT':
-        return numA - numB;
+        return aNum - bNum;
       case 'DIVIDE':
-        if (numB === 0) return 'Error';
-        quotient = numA / numB;
+        if (bNum === 0) return 'Error';
+        quotient = aNum / bNum;
         return this.isNegZero(quotient) ? 0 : quotient;
       default:
         throw Error(
-	  'Invalid operation type. Valid types are "SUM", "SUBTRACT", and "DIVIDE".'
-	);
+          'Invalid operation type. Valid types are "SUM", "SUBTRACT", and "DIVIDE".'
+        );
     }
   }
 };

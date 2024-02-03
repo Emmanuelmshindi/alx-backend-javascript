@@ -1,18 +1,18 @@
 const Utils = {
   isNegZero (n) {
     const num = Number(n);
-    return num === 0 / num === -Infinity;
+    return num === 0 && 1 / num === -Infinity;
   },
   calculateNumber (a, b = 0, type) {
-    const numA = Number(a);
-    const numB = Number(b);
+    let numA = Number(a);
+    let numB = Number(b);
 
     if (Number.isNaN(numA) || Number.isNaN(numB)) { throw TypeError('Parameters must be numbers or able to coerce to number'); }
 
     numA = Math.round(numA);
     numB = Math.round(numB);
 
-    const quotient;
+    let quotient;
 
     switch (type) {
       case 'SUM':
